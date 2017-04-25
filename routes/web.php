@@ -12,5 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+     return view('welcome');
+
+});
+
+Route::get('api/{value1}/{value2}', 'ApiController@getdata')->middleware('cors'); 
+Route::get('api/city', 'ApiController@getCity')->middleware('cors'); 
+
+Route::get('api/all/all', function () {
+    // return view('welcome');
+
+    $all = DB::table('sfdetails')
+    ->where('id', '1')
+
+    ->get();
+    return $all;
+
 });
