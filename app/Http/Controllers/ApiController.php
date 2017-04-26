@@ -45,7 +45,7 @@ class ApiController extends Controller
 public function getType($taluk,$village,$sfno){
 // print_r("in get type");
          $all = DB::table('sfdetails')
-         ->select('type')
+         ->select('*')
          ->where('taluk', $taluk)
          ->where('village', $village)
          ->where('sfno', $sfno)
