@@ -31,6 +31,30 @@ class ApiController extends Controller
 
 
     }
+
+    public function getVillage($value3){
+
+         $all = DB::table('sfdetails')
+         ->select('village')
+         ->where('taluk', $value3)
+         ->distinct()
+         ->get();
+        
+            return $all;
+    }
+public function getType($taluk,$village,$sfno){
+print_r("in get type");
+         $all = DB::table('sfdetails')
+         ->select('type')
+         ->where('taluk', $taluk)
+         ->where('village', $village)
+         ->where('sfno', $sfno)
+         ->distinct()
+         ->get();
+        
+            return $all;
+    }
+    
     
 
 }
