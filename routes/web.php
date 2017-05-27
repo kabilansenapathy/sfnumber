@@ -31,3 +31,5 @@ Route::get('api/all/all', function () {
     return $all;
 
 });
+
+Route::get('/guzzle','ApiController@guzzleTest');
