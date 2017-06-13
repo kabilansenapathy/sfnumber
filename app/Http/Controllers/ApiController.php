@@ -76,20 +76,29 @@ public function getType($taluk,$village,$sfno){
             'base_uri' => 'http://ecview.tnreginet.net/',
             'timeout' => 10.0,
         ]);
-
+        $village_name = array();
+        $village_value = array();
+        $i = 0;
         $response = $client->request('GET', 'getvillage.asp?q='.$srocode.'&tams=');
         $response_body = $response->getBody();
         $dom = new \DOMDocument;
         $dom->loadHTML($response_body);
         $options = $dom->getElementsByTagName('option');
             foreach($options as $option){
-                echo $option->nodeValue, PHP_EOL;
-                echo $option->getAttribute('value'), PHP_EOL;
+               // echo $option->nodeValue, PHP_EOL;
+                array_push($village_name, $option->nodeValue);
+                array_push($village_value, $option->getAttribute('value'));
+           // echo $village_value[$i];
+            $i++;
+            
+               // echo $option->getAttribute('value'), PHP_EOL;
             }
-
+            $json_village = array_merge($village_name);
+json_encode(array('value'=>$json_village), JSON_FORCE_OBJECT);
+return $json_village;
         
        // echo $response_body;
-    
+   // echo $village_name;
 }
     }
     
