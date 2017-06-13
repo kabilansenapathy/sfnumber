@@ -32,4 +32,4 @@ Route::get('api/all/all', function () {
 
 });
 
-Route::get('/guzzle','ApiController@guzzleTest');
+Route::get('/ec/village/{srocode}','ApiController@ecVillage');

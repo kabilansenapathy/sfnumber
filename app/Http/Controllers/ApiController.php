@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use GuzzleHttp\Client;
+use parser\htmlparser;
 
 class ApiController extends Controller
 {
@@ -15,8 +16,7 @@ class ApiController extends Controller
                 //->where('id', $value1)
                 ->where('taluk', 'singanallur')
                 ->where('village_no', $value2)
-
-    ->get();
+                ->get();
     return $all;
       //  return view('api', ['value' => $value]);
 
@@ -56,7 +56,7 @@ public function getType($taluk,$village,$sfno){
             return $all;
     }
 
-    public function guzzleTest(){
+    public function ecVillage($srocode){
         $client = new Client([
             'headers' => [
             'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
@@ -74,16 +74,24 @@ public function getType($taluk,$village,$sfno){
             'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8 ',
             ],
             'base_uri' => 'http://ecview.tnreginet.net/',
-            'timeout' => 5.0,
+            'timeout' => 10.0,
         ]);
 
-        $response = $client->request('GET', 'getvillage.asp?q=65&tams=');
-        echo $response->getBody();
-       foreach ($response->getHeaders() as $name => $values) {
-    echo $name . ': ' . implode(', ', $values) . "\r\n";
+        $response = $client->request('GET', 'getvillage.asp?q='.$srocode.'&tams=');
+        $response_body = $response->getBody();
+        // $response_body = trim($response_body, "<select name='villagesel' id='villagesel' >option value=''>" );
+
+        // $response_body = trim($response_body, "Select Village");
+        // $response_body = trim($response_body, "</select>" );
+        //$response_body = strip_tags($response_body, '<option>');
+        
+        
+        echo $response_body;
+    //    foreach ($response->getHeaders() as $name => $values) {
+    // echo $name . ': ' . implode(', ', $values) . "\r\n";
 }
     }
     
     
+    
 
-}
