@@ -84,9 +84,12 @@ public function getType($taluk,$village,$sfno){
         $dom = new \DOMDocument;
         $dom->loadHTML($response_body);
         $options = $dom->getElementsByTagName('option');
+        $v = new village();
+        $v->vill_name = "Coimbatore";
+        $v->vill_value = "1";
             foreach($options as $option){
                // echo $option->nodeValue, PHP_EOL;
-                array_push($village_name, $option->nodeValue);
+                array_push($village_name, array($option->nodeValue=>$option->getAttribute('value')));
                 array_push($village_value, $option->getAttribute('value'));
            // echo $village_value[$i];
             $i++;
@@ -95,12 +98,23 @@ public function getType($taluk,$village,$sfno){
             }
             $json_village = array_merge($village_name);
 json_encode(array('value'=>$json_village), JSON_FORCE_OBJECT);
-return $json_village;
+//return $json_village;
+        
+        
+
+        echo json_encode($village_name);
+        
         
        // echo $response_body;
    // echo $village_name;
 }
+
     }
+    class village
+        {
+            public $vill_value = "";
+            public $vill_name = "";
+        }
     
     
     
