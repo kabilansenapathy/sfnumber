@@ -79,16 +79,17 @@ public function getType($taluk,$village,$sfno){
 
         $response = $client->request('GET', 'getvillage.asp?q='.$srocode.'&tams=');
         $response_body = $response->getBody();
-        // $response_body = trim($response_body, "<select name='villagesel' id='villagesel' >option value=''>" );
+        $dom = new \DOMDocument;
+        $dom->loadHTML($response_body);
+        $options = $dom->getElementsByTagName('option');
+            foreach($options as $option){
+                echo $option->nodeValue, PHP_EOL;
+                echo $option->getAttribute('value'), PHP_EOL;
+            }
 
-        // $response_body = trim($response_body, "Select Village");
-        // $response_body = trim($response_body, "</select>" );
-        //$response_body = strip_tags($response_body, '<option>');
         
-        
-        echo $response_body;
-    //    foreach ($response->getHeaders() as $name => $values) {
-    // echo $name . ': ' . implode(', ', $values) . "\r\n";
+       // echo $response_body;
+    
 }
     }
     
