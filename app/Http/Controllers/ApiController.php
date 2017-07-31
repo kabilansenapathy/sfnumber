@@ -56,6 +56,19 @@ public function getType($taluk,$village,$sfno){
             return $all;
     }
 
+    public function getSfResult($village,$sfno){
+// print_r("in get type");
+         $all = DB::table('sfdetails')
+         ->select('*')
+         //->where('taluk', $taluk)
+         ->where('village', $village)
+         ->where('sfno', $sfno)
+         ->distinct()
+         ->get();
+        
+            return $all;
+    }
+
     public function ecVillage($srocode){
         $client = new Client([
             'headers' => [
