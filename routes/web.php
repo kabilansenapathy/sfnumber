@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::get('api/city', 'ApiController@getCity')->middleware('cors'); 
 Route::get('api/village/{taluk}', 'ApiController@getVillage')->middleware('cors');
 Route::get('api/type/{taluk}/{village}/{sfno}', 'ApiController@getType')->middleware('cors'); 
-Route::get('api/sf/{village}/{sfno}', 'ApiController@getType')->middleware('cors'); 
+Route::get('api/sf/{village}/{sfno}', 'ApiController@getSfResult')->middleware('cors'); 
 
 Route::get('api/all/all', function () {
     // return view('welcome');

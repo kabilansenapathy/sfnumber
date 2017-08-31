@@ -24,7 +24,7 @@ class ApiController extends Controller
 
     public function getCity(){
 
-        $all = DB::table('sfdetails')->select('taluk')->distinct()->get();
+        $all = DB::table('sfdetails')->select('village')->distinct()->get();
         // $all = DB::table('sfdetails')
         //     ->distinct('taluk')
         //     ->get();
@@ -100,29 +100,30 @@ public function getType($taluk,$village,$sfno){
         $v = new village();
         $v->vill_name = "Coimbatore";
         $v->vill_value = "1";
-            foreach($options as $option){
-               // echo $option->nodeValue, PHP_EOL;
-                array_push($village_name, array($option->nodeValue=>$option->getAttribute('value')));
-                array_push($village_value, $option->getAttribute('value'));
-           // echo $village_value[$i];
-            $i++;
-            
-               // echo $option->getAttribute('value'), PHP_EOL;
-            }
-            $json_village = array_merge($village_name);
-json_encode(array('value'=>$json_village), JSON_FORCE_OBJECT);
+        foreach($options as $option){
+            // echo $option->nodeValue, PHP_EOL;
+             //array_push($village_name, array($option->nodeValue=>$option->getAttribute('value')));
+             array_push($village_name, array('value'=>$option->getAttribute('value')));
+             //array_push($village_value, $option->getAttribute('value'));
+        // echo $village_value[$i];
+         $i++;
+         
+            // echo $option->getAttribute('value'), PHP_EOL;
+         }
+         //$json_village = array_merge($village_name);
+         //json_encode(array('value'=>$json_village), JSON_FORCE_OBJECT);
 //return $json_village;
-        
-        
+     
+     
 
-        echo json_encode($village_name);
-        
-        
-       // echo $response_body;
-   // echo $village_name;
+     return $village_name;
+     
+     
+    // echo $response_body;
+// echo $village_name;
 }
 
-    }
+ }
     class village
         {
             public $vill_value = "";
