@@ -123,6 +123,37 @@ public function getType($taluk,$village,$sfno){
 // echo $village_name;
 }
 
+public function getChitta(){
+
+    $client = new Client();
+    $res = $client->request('GET', 'http://eservices.tn.gov.in/eservicesnew/land/chitta.html?lan=en');
+
+    $response = $client->request('POST', 'http://eservices.tn.gov.in/eservicesnew/land/chittaCheck_en.html?lan=en', [$res->getHeaders(),
+    'form_params' => [
+       'task' => 'chittaEng',
+       'districtCode' => '12',
+       'areaType' => 'urban'
+   ]]);
+   $response_body = $response->getBody();
+   $dom = new \DOMDocument;
+   $internalErrors = libxml_use_internal_errors(true);
+   $dom->loadHTML($response_body);
+   libxml_use_internal_errors($internalErrors);
+    $images = $dom->getElementsByTagName('img');
+$i=0;
+foreach($images as $image){
+    $i++;
+    if($i==3){
+    echo $image->getAttribute('src'), PHP_EOL;
+         define('DIRECTORY', 'img');
+         $image = file_get_contents("http://eservices.tn.gov.in/eservicesnew/land/simpleCaptcha.html");
+         file_put_contents(DIRECTORY . '/image.jpg', $image);
+         echo $image;
+    }
+}
+
+}
+
  }
     class village
         {

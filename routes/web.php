@@ -15,7 +15,10 @@ Route::get('/', function () {
      return view('welcome');
 
 });
+Route::get('/privacy-policy', function () {
+    return view('privacy');
 
+});
 //Route::get('api/{value1}/{value2}', 'ApiController@getdata')->middleware('cors'); 
 Route::get('api/city', 'ApiController@getCity')->middleware('cors'); 
 Route::get('api/village/{taluk}', 'ApiController@getVillage')->middleware('cors');
@@ -32,5 +35,7 @@ Route::get('api/all/all', function () {
     return $all;
 
 });
+
+Route::get('/chitta','ApiController@getChitta');
 
 Route::get('/ec/village/{srocode}','ApiController@ecVillage');
